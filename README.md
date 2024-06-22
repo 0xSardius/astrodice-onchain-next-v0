@@ -1,59 +1,11 @@
+# Astrodice onchain
 
-![tw-banner](https://github.com/thirdweb-example/next-starter/assets/57885104/20c8ce3b-4e55-4f10-ae03-2fe4743a5ee8)
+Astrodice onchain is a decentralized prediction application where users ask a question, and you three verifiably random dice are cast to give you insight into your query. Each dice is a combination of planets (what), signs (how), and houses (where). Once you cast the dice while holding your question, your NFT is minted and you can see the answer to your question.
 
-# thirdweb-next-starter
+## How to use
 
-Starter template to build an onchain react native app with [thirdweb](https://thirdweb.com/) and [next](https://nextjs.org/).
-
-## Installation
-
-Install the template using [thirdweb create](https://portal.thirdweb.com/cli/create)
-
-```bash
-  npx thirdweb create app --next
-```
-
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file:
-
-`CLIENT_ID`
-
-To learn how to create a client ID, refer to the [client documentation](https://portal.thirdweb.com/typescript/v5/client). 
-
-## Run locally
-
-Install dependencies
-
-```bash
-yarn
-```
-
-Start development server
-
-```bash
-yarn dev
-```
-
-Create a production build
-
-```bash
-yarn build
-```
-
-Preview the production build
-
-```bash
-yarn start
-```
-
-## Resources
-
-- [Documentation](https://portal.thirdweb.com/typescript/v5)
-- [Templates](https://thirdweb.com/templates)
-- [YouTube](https://www.youtube.com/c/thirdweb)
-- [Blog](https://blog.thirdweb.com)
-
-## Need help?
-
-For help or feedback, please [visit our support site](https://thirdweb.com/support)
+1. Connect your wallet
+2. Ask a question
+3. Cast the dice (Mint your NFT)
+4. See the answer
+5. Interpret the reading using keywords for each sign, planet and hou
