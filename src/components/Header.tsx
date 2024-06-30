@@ -15,6 +15,7 @@ export default function Header() {
 
       <p className="text-zinc-300 text-base">
         <div>
+          {/* Could upgrade this eventually with a Connect embed*/}
           <ConnectButton client={client} chain={chain} />
         </div>
         Read the{" "}
