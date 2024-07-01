@@ -18,12 +18,21 @@ export default function Astrodice() {
   const [isMinting, setIsMinting] = useState(false);
   const [imagePrompt, setImagePrompt] = useState("");
 
-  const address = useActiveAccount();
+  const { data: tokenCounter, isLoading: loadingTokenCounter } =
+    useReadContract({
+      contract: contract,
+      method: "tokenCounter",
+      params: [],
+    });
 
-  const {data : astrodiceReading, isLoading : loadingReading} = useReadContract({
-    contract: contract,
-    method:
-  });
+  let latestTokenId = tokenCounter ? tokenCounter.toString() : 0;
+
+  const { data: mintedAstrodice, isLoading: loadingAstrodice } =
+    useReadContract({
+      contract: contract,
+      method: "tokenIdToAstrodice",
+      params: [latestTokenId],
+    });
 
   return (
     <>
