@@ -2,14 +2,28 @@
 
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
-import { MediaRenderer } from "thirdweb/react";
+import {
+  MediaRenderer,
+  TransactionButton,
+  useReadContract,
+  useActiveAccount,
+} from "thirdweb/react";
+import { prepareContractCall } from "thirdweb";
 import { client } from "../app/client";
+import { contract } from "../utils/contract";
 
 export default function Astrodice() {
   const [generatedImage, setGeneratedImage] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [isMinting, setIsMinting] = useState(false);
   const [imagePrompt, setImagePrompt] = useState("");
+
+  const address = useActiveAccount();
+
+  const {data : astrodiceReading, isLoading : loadingReading} = useReadContract({
+    contract: contract,
+    method:
+  });
 
   return (
     <>
@@ -41,17 +55,30 @@ export default function Astrodice() {
               onChange={(e) => setImagePrompt(e.target.value)}
               className="w-[300px] h-[40px] py-0 px-2.5 rounded-[5px] border border-solid border-[#777] mb-2.5 "
             />
-            <button
+            <TransactionButton
+              className="w-[300px] h-[40px] bg-[#333] text-[#fff] rounded-[5px] border-none cursor-pointer"
+              transaction={() =>
+                prepareContractCall({
+                  contract: contract,
+                  method: "createAstrodiceNFT",
+                  params: [],
+                })
+              }
+            >
+              Generate and Mint NFT Reading
+            </TransactionButton>
+            {/* <button
               type="submit"
               disabled={isGenerating || isMinting || !imagePrompt}
               className="w-[300px] h-[40px] bg-[#333] text-[#fff] rounded-[5px] border-none cursor-pointer"
+              onClick={handleAstrodiceMint}
             >
               {isGenerating
                 ? "Rolling the Astrodice..."
                 : isMinting
                 ? "Minting the Reading..."
                 : "Generate and Mint NFT Reading"}
-            </button>
+            </button> */}
           </div>
         ) : (
           <div></div>
