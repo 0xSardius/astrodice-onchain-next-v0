@@ -5,34 +5,53 @@ import Header from "./Header";
 import {
   MediaRenderer,
   TransactionButton,
-  useReadContract,
-  useActiveAccount,
+  useContractEvents,
 } from "thirdweb/react";
-import { prepareContractCall } from "thirdweb";
+import { prepareContractCall, prepareEvent } from "thirdweb";
 import { client } from "../app/client";
 import { contract } from "../utils/contract";
+
+interface AstrodiceEvent {
+  tokenId: string;
+  planet: string;
+  sign: string;
+  house: string;
+  planetSymbol: string;
+  signSymbol: string;
+}
 
 export default function Astrodice() {
   const [generatedImage, setGeneratedImage] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [isMinting, setIsMinting] = useState(false);
   const [imagePrompt, setImagePrompt] = useState("");
+  const [lastMintedNFT, setLastMintedNFT] = useState<AstrodiceEvent | null>(
+    null
+  );
 
-  const { data: tokenCounter, isLoading: loadingTokenCounter } =
-    useReadContract({
-      contract: contract,
-      method: "tokenCounter",
-      params: [],
-    });
+  const preparedEvent = prepareEvent({
+    signature:
+      "event CreatedAstrodice(uint256 tokenId, string planet, string sign, string house, string planetSymbol, string signSymbol)",
+  });
 
-  let latestTokenId = tokenCounter ? tokenCounter.toString() : 0;
+  const { data: events, isLoading: isLoadingEvents } = useContractEvents({
+    contract: contract,
+    events: [preparedEvent],
+  });
 
-  const { data: mintedAstrodice, isLoading: loadingAstrodice } =
-    useReadContract({
-      contract: contract,
-      method: "tokenIdToAstrodice",
-      params: [latestTokenId],
-    });
+  useEffect(() => {
+    if (events && events.length > 0) {
+      const lastEvent = events[events.length - 1];
+      setLastMintedNFT({
+        tokenId: lastEvent.args.tokenId.toString(),
+        planet: lastEvent.args.planet,
+        sign: lastEvent.args.sign,
+        house: lastEvent.args.house,
+        planetSymbol: lastEvent.args.planetSymbol,
+        signSymbol: lastEvent.args.signSymbol,
+      });
+    }
+  }, [events]);
 
   return (
     <>
@@ -64,18 +83,7 @@ export default function Astrodice() {
               onChange={(e) => setImagePrompt(e.target.value)}
               className="w-[300px] h-[40px] py-0 px-2.5 rounded-[5px] border border-solid border-[#777] mb-2.5 "
             />
-            <TransactionButton
-              className="w-[300px] h-[40px] bg-[#333] text-[#fff] rounded-[5px] border-none cursor-pointer"
-              transaction={() =>
-                prepareContractCall({
-                  contract: contract,
-                  method: "createAstrodiceNFT",
-                  params: [],
-                })
-              }
-            >
-              Generate and Mint NFT Reading
-            </TransactionButton>
+
             {/* <button
               type="submit"
               disabled={isGenerating || isMinting || !imagePrompt}
@@ -93,6 +101,31 @@ export default function Astrodice() {
           <div></div>
         )}
       </form>
+      <div className="flex flex-col items-center">
+        <TransactionButton
+          className="w-[300px] h-[40px] bg-[#333] text-[#fff] rounded-[5px] border-none cursor-pointer"
+          transaction={() =>
+            prepareContractCall({
+              contract: contract,
+              method: "createAstrodiceNFT",
+              params: [],
+            })
+          }
+        >
+          Generate and Mint NFT Reading
+        </TransactionButton>
+      </div>
+      {lastMintedNFT && (
+        <div className="flex flex-col items-center mt-5">
+          <h3>Last Minted NFT</h3>
+          <p>Token ID: {lastMintedNFT.tokenId}</p>
+          <p>Planet: {lastMintedNFT.planet}</p>
+          <p>Sign: {lastMintedNFT.sign}</p>
+          <p>House: {lastMintedNFT.house}</p>
+          <p>Planet Symbol: {lastMintedNFT.planetSymbol}</p>
+          <p>Sign Symbol: {lastMintedNFT.signSymbol}</p>
+        </div>
+      )}
     </>
   );
 }
