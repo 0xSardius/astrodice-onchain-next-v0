@@ -56,7 +56,7 @@ export default function Astrodice() {
   return (
     <>
       <Header />
-      <div className="flex flex-col items-center justify-center m-5">
+      <div className="flex flex-col items-center justify-center min-h-screen m-5">
         {generatedImage ? (
           <MediaRenderer
             client={client}
