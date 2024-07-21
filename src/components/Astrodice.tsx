@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
+import KeywordTable from "./KeywordTable";
 import {
   MediaRenderer,
   TransactionButton,
@@ -28,6 +29,7 @@ export default function Astrodice() {
   const [lastMintedNFT, setLastMintedNFT] = useState<AstrodiceEvent | null>(
     null
   );
+  const [showLastMinted, setShowLastMinted] = useState(false);
 
   const preparedEvent = prepareEvent({
     signature:
@@ -126,6 +128,7 @@ export default function Astrodice() {
           <p>Sign Symbol: {lastMintedNFT.signSymbol}</p>
         </div>
       )}
+      <KeywordTable />
     </>
   );
 }
