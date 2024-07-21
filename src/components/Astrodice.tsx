@@ -56,79 +56,69 @@ export default function Astrodice() {
   }, [events]);
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="flex flex-col items-center justify-center min-h-screen m-5">
-        {generatedImage ? (
-          <MediaRenderer
-            client={client}
-            src={generatedImage}
-            className="w-[300px] h-[300px] rounded-lg"
-          />
-        ) : (
-          <div className="w-[300px] h-[300px] border border-dashed border-[#777] rounded-[10px] flex justify-center items-center">
-            <p className="color-[#777]">
-              {isGenerating
-                ? "Generating reading..."
-                : "Enter a question to generate a reading."}
-            </p>
+      <main className="flex-grow container mx-auto px-4 py-8">
+        <div className="max-w-2xl mx-auto space-y-8">
+          <div className="text-center">
+            {generatedImage ? (
+              <MediaRenderer
+                client={client}
+                src={generatedImage}
+                className="w-64 h-64 mx-auto rounded-lg shadow-lg"
+              />
+            ) : (
+              <div className="w-64 h-64 mx-auto border-2 border-dashed border-gray-300 rounded-lg flex justify-center items-center">
+                <p className="text-gray-500">
+                  {isGenerating
+                    ? "Generating reading..."
+                    : "Enter a question to generate a reading."}
+                </p>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      <form>
-        {!generatedImage || isMinting ? (
-          <div className="flex flex-col items-center">
+
+          <form className="space-y-4 flex flex-col items-center">
             <input
               type="text"
               placeholder="Enter a question..."
               value={imagePrompt}
               onChange={(e) => setImagePrompt(e.target.value)}
-              className="w-[300px] h-[40px] py-0 px-2.5 rounded-[5px] border border-solid border-[#777] mb-2.5 "
+              className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-
-            {/* <button
-              type="submit"
-              disabled={isGenerating || isMinting || !imagePrompt}
-              className="w-[300px] h-[40px] bg-[#333] text-[#fff] rounded-[5px] border-none cursor-pointer"
-              onClick={handleAstrodiceMint}
+          </form>
+          <div className="flex flex-col items-center ">
+            <TransactionButton
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300 disabled:opacity-50"
+              transaction={() =>
+                prepareContractCall({
+                  contract: contract,
+                  method: "createAstrodiceNFT",
+                  params: [],
+                })
+              }
             >
-              {isGenerating
-                ? "Rolling the Astrodice..."
-                : isMinting
-                ? "Minting the Reading..."
-                : "Generate and Mint NFT Reading"}
-            </button> */}
+              Generate and Mint NFT Reading
+            </TransactionButton>
           </div>
-        ) : (
-          <div></div>
-        )}
-      </form>
-      <div className="flex flex-col items-center">
-        <TransactionButton
-          className="w-[300px] h-[40px] bg-[#333] text-[#fff] rounded-[5px] border-none cursor-pointer"
-          transaction={() =>
-            prepareContractCall({
-              contract: contract,
-              method: "createAstrodiceNFT",
-              params: [],
-            })
-          }
-        >
-          Generate and Mint NFT Reading
-        </TransactionButton>
-      </div>
-      {lastMintedNFT && (
-        <div className="flex flex-col items-center mt-5">
-          <h3>Last Minted NFT</h3>
-          <p>Token ID: {lastMintedNFT.tokenId}</p>
-          <p>Planet: {lastMintedNFT.planet}</p>
-          <p>Sign: {lastMintedNFT.sign}</p>
-          <p>House: {lastMintedNFT.house}</p>
-          <p>Planet Symbol: {lastMintedNFT.planetSymbol}</p>
-          <p>Sign Symbol: {lastMintedNFT.signSymbol}</p>
+
+          {lastMintedNFT && (
+            <div className="bg-gray-500 rounded-lg p-6 shadow-md">
+              <h3 className="text-xl font-semibold mb-4">Last Minted NFT</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <p>Token ID: {lastMintedNFT.tokenId}</p>
+                <p>Planet: {lastMintedNFT.planet}</p>
+                <p>Sign: {lastMintedNFT.sign}</p>
+                <p>House: {lastMintedNFT.house}</p>
+                <p>Planet Symbol: {lastMintedNFT.planetSymbol}</p>
+                <p>Sign Symbol: {lastMintedNFT.signSymbol}</p>
+              </div>
+            </div>
+          )}
+
+          <KeywordTable />
         </div>
-      )}
-      <KeywordTable />
-    </>
+      </main>
+    </div>
   );
 }
