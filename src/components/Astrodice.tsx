@@ -89,7 +89,7 @@ export default function Astrodice() {
           </form>
           <div className="flex flex-col items-center ">
             <TransactionButton
-              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300 disabled:opacity-50"
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 hover:text-white transition duration-300 disabled:opacity-50"
               transaction={() =>
                 prepareContractCall({
                   contract: contract,
