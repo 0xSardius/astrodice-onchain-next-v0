@@ -8,4 +8,9 @@ Astrodice onchain is a decentralized prediction application where users ask a qu
 2. Ask a question
 3. Cast the dice (Mint your NFT)
 4. See the answer
-5. Interpret the reading using keywords for each sign, planet and hou
+5. Interpret the reading using keywords for each sign, planet and house
+
+## Interpretation
+
+1. Working on adding more detailed keywords to help you interpret the reading
+2. DM me on Twitter @0xSardius if you have any questions, feedback, or want help interpreting your reading
