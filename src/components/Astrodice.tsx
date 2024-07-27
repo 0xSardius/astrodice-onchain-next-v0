@@ -19,6 +19,7 @@ interface AstrodiceEvent {
   house: string;
   planetSymbol: string;
   signSymbol: string;
+  question: string;
 }
 
 export default function Astrodice() {
@@ -33,7 +34,7 @@ export default function Astrodice() {
 
   const preparedEvent = prepareEvent({
     signature:
-      "event CreatedAstrodice(uint256 tokenId, string planet, string sign, string house, string planetSymbol, string signSymbol)",
+      "event CreatedAstrodice(uint256 tokenId, string planet, string sign, string house, string planetSymbol, string signSymbol, string question)",
   });
 
   const { data: events, isLoading: isLoadingEvents } = useContractEvents({
@@ -51,6 +52,7 @@ export default function Astrodice() {
         house: lastEvent.args.house,
         planetSymbol: lastEvent.args.planetSymbol,
         signSymbol: lastEvent.args.signSymbol,
+        question: lastEvent.args.question,
       });
     }
   }, [events]);
@@ -94,7 +96,7 @@ export default function Astrodice() {
                 prepareContractCall({
                   contract: contract,
                   method: "createAstrodiceNFT",
-                  params: [],
+                  params: [imagePrompt],
                 })
               }
             >
@@ -107,6 +109,7 @@ export default function Astrodice() {
               <h3 className="text-xl font-semibold mb-4">Last Minted NFT</h3>
               <div className="grid grid-cols-2 gap-4">
                 <p>Token ID: {lastMintedNFT.tokenId}</p>
+                <p>Question: {lastMintedNFT.question}</p>
                 <p>Planet: {lastMintedNFT.planet}</p>
                 <p>Sign: {lastMintedNFT.sign}</p>
                 <p>House: {lastMintedNFT.house}</p>
