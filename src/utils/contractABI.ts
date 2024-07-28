@@ -98,6 +98,12 @@ export const contractABI = [
         indexed: false,
         internalType: "string",
       },
+      {
+        type: "string",
+        name: "question",
+        indexed: false,
+        internalType: "string",
+      },
     ],
     outputs: [],
     anonymous: false,
@@ -168,7 +174,13 @@ export const contractABI = [
   {
     type: "function",
     name: "createAstrodiceNFT",
-    inputs: [],
+    inputs: [
+      {
+        type: "string",
+        name: "_question",
+        internalType: "string",
+      },
+    ],
     outputs: [],
     stateMutability: "nonpayable",
   },
@@ -270,6 +282,11 @@ export const contractABI = [
         name: "signSymbol",
         internalType: "string",
       },
+      {
+        type: "string",
+        name: "question",
+        internalType: "string",
+      },
     ],
     stateMutability: "view",
   },
@@ -344,6 +361,11 @@ export const contractABI = [
       {
         type: "string",
         name: "signSymbol",
+        internalType: "string",
+      },
+      {
+        type: "string",
+        name: "question",
         internalType: "string",
       },
     ],
@@ -573,6 +595,11 @@ export const contractABI = [
       {
         type: "string",
         name: "signSymbol",
+        internalType: "string",
+      },
+      {
+        type: "string",
+        name: "question",
         internalType: "string",
       },
     ],

@@ -25,6 +25,14 @@ const keywordData = {
       name: "Pluto",
       keywords: "Transformation, power, intensity, regeneration",
     },
+    {
+      name: "North Node",
+      keywords: "Destiny, life path, growth, challenges",
+    },
+    {
+      name: "South Node",
+      keywords: "Past lives, karmic patterns, release, lessons",
+    },
   ],
   signs: [
     {
