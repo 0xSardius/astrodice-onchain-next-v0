@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import KeywordTable from "./KeywordTable";
+import Instructions from "./Instructions";
 import {
   MediaRenderer,
   TransactionButton,
@@ -60,6 +61,7 @@ export default function Astrodice() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
+      <Instructions />
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto space-y-8">
           <div className="text-center">
