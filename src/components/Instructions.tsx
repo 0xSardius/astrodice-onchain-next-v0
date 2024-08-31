@@ -30,7 +30,7 @@ const Instructions = () => {
             <li>Think of a specific question or area of focus</li>
             <li>Frame your question to invite deeper insights</li>
             <li>Enter your question in the input field</li>
-            <li>Click "Generate and Mint NFT Reading"</li>
+            <li>Click &ldquo;Generate and Mint NFT Reading&ldquo;</li>
           </ol>
           <p>
             Your unique astrological insight will be minted as an NFT, combining
