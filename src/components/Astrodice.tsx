@@ -12,6 +12,7 @@ import {
 import { prepareContractCall, prepareEvent } from "thirdweb";
 import { client } from "../app/client";
 import { contract } from "../utils/contract";
+import ExampleReading from "./ExampleReading";
 
 interface AstrodiceEvent {
   tokenId: string;
@@ -62,6 +63,7 @@ export default function Astrodice() {
     <div className="flex flex-col min-h-screen">
       <Header />
       <Instructions />
+      <ExampleReading />
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto space-y-8">
           <div className="text-center">

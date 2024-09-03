@@ -10,19 +10,19 @@ const Instructions = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center justify-between w-full text-left"
       >
-        <h2 className="text-lg font-semibold">How to Use Astrodice</h2>
+        <h2 className="text-lg font-semibold">How to Use onchain Astrodice</h2>
         {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
       </button>
       {isOpen && (
         <div className="mt-4 space-y-3">
           <p>
             onchain Astrodice generates personalized astrological readings as
-            NFTs using three virtual dice:
+            NFTs using three virtual dice. Each dice represents:
           </p>
           <ul className="list-disc list-inside pl-4">
-            <li>Planets (the WHAT)</li>
-            <li>Zodiac Signs (the HOW)</li>
-            <li>Houses (WHERE)</li>
+            <li>the Planets (the WHAT)</li>
+            <li>the Zodiac Signs (the HOW)</li>
+            <li>the Houses (WHERE)</li>
           </ul>
 
           <p>To get your reading:</p>
