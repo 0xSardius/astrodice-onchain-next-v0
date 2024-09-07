@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import KeywordTable from "./KeywordTable";
 import Instructions from "./Instructions";
+import PersonalReadingCTA from "./PersonalReadingCTA";
 import {
   MediaRenderer,
   TransactionButton,
@@ -33,6 +34,7 @@ export default function Astrodice() {
     null
   );
   const [showLastMinted, setShowLastMinted] = useState(false);
+  const [showCTA, setShowCTA] = useState(false);
 
   const preparedEvent = prepareEvent({
     signature:
@@ -58,6 +60,12 @@ export default function Astrodice() {
       });
     }
   }, [events]);
+
+  useEffect(() => {
+    if (lastMintedNFT) {
+      setShowCTA(true);
+    }
+  }, [lastMintedNFT]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -122,6 +130,8 @@ export default function Astrodice() {
               </div>
             </div>
           )}
+
+          {showCTA && <PersonalReadingCTA lastMintedNFT={lastMintedNFT} />}
 
           <KeywordTable />
         </div>
